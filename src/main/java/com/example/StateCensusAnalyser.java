@@ -4,7 +4,7 @@ import java.util.List;
 
 public class StateCensusAnalyser {
 
-    private final List<String[]> fileData;
+    private List<String[]> fileData;
 
     public StateCensusAnalyser(CSVStateCensus csvStateCensus){
         this.fileData = csvStateCensus.readFile();
@@ -19,6 +19,14 @@ public class StateCensusAnalyser {
         }
         return null;
     }
+
+    public List<String[]> getData() {
+        return fileData;
+    }
     
+    public void loadAndParseData(String csvFilePath) {
+        CSVStateCensus csvStateCensus = new CSVStateCensus(csvFilePath);
+        this.fileData = csvStateCensus.readFile();
+    }
     
 }
