@@ -25,12 +25,32 @@ public class StateCensusAnalyser {
     }
     
     public void loadAndParseData(String csvFilePath) {
+        if (!csvFilePath.toLowerCase().endsWith(".csv")) {
+            throw new CSVTypeException("Incorrect file type. Expected a CSV file.");
+        }
+
         CSVStateCensus csvStateCensus = new CSVStateCensus(csvFilePath);
-        this.fileData = csvStateCensus.readFile();
+
+        try {
+            this.fileData = csvStateCensus.readFile();
+            validateType();
+        } catch (CSVTypeException e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
     }
 
     public int countEntries() {
         return fileData.size();
+    }
+
+    private void validateType() {
+        int expectedColumnCount = 4;
+
+        for (String[] data : fileData) {
+            if (data.length != expectedColumnCount) {
+                throw new CSVTypeException("Incorrect type in CSV file. Expected " + expectedColumnCount + " columns.");
+            }
+        }
     }
 }
     

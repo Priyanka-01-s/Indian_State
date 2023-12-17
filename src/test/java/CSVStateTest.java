@@ -1,9 +1,13 @@
 import org.junit.jupiter.api.Test;
 
 import com.example.CSVStateCensus;
+import com.example.CSVTypeException;
 import com.example.StateCensusAnalyser;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CSVStateTest {
     
@@ -44,5 +48,16 @@ public class CSVStateTest {
                 "Number of records in the CSV file does not match the expected number.");
     }
 
+    //TC3
+    @Test
+    void testIncorrectFileType() {
+        String incorrectFilePath = "StateCensus.txt";
+
+        CSVStateCensus csvStateCensus = new CSVStateCensus(incorrectFilePath);
+        StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(csvStateCensus);
+        CSVTypeException thrownException = assertThrows(CSVTypeException.class, () -> stateCensusAnalyser.loadAndParseData(incorrectFilePath));
+        assertNotNull(thrownException);
+        assertEquals("Incorrect file type. Expected a CSV file.", thrownException.getMessage());
+    }
     
 }
