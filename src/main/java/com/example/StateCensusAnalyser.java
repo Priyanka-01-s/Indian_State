@@ -28,5 +28,10 @@ public class StateCensusAnalyser {
         CSVStateCensus csvStateCensus = new CSVStateCensus(csvFilePath);
         this.fileData = csvStateCensus.readFile();
     }
-    
+
+    public int countEntries() {
+        return fileData.size();
+    }
 }
+    
+

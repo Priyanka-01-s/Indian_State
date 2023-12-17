@@ -20,8 +20,11 @@ public class Main {
             System.out.println();
         }
 
-        //For searching using the TIN number of the state
         StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(csvStateCensus);
+        System.out.println("The number of entries in the CSv file : "+stateCensusAnalyser.countEntries());
+
+        //For searching using the TIN number of the state
+        
         System.out.println("ENTER THE STATE TIN NUMBER TO CHECK :");
         Scanner sc = new Scanner(System.in);
         String tinNum = sc.nextLine();
