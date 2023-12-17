@@ -9,9 +9,14 @@ import java.util.List;
 public class CSVStateCensus {
     
     private String filePath;
+    private String expectedDelimiter = ","; 
 
     public CSVStateCensus(String filePath){
         this.filePath = filePath;
+    }
+
+    public void setExpectedDelimiter(String delimiter) {
+        this.expectedDelimiter = delimiter;
     }
 
     public List<String[]> readFile(){

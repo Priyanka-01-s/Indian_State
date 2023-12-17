@@ -1,10 +1,10 @@
 import org.junit.jupiter.api.Test;
 
+import com.example.CSVDelimiterException;
 import com.example.CSVStateCensus;
 import com.example.CSVTypeException;
 import com.example.StateCensusAnalyser;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -59,5 +59,22 @@ public class CSVStateTest {
         assertNotNull(thrownException);
         assertEquals("Incorrect file type. Expected a CSV file.", thrownException.getMessage());
     }
-    
+
+    //TC4
+    @Test
+    void testIncorrectDelimiter() {
+        String filePathWithIncorrectDelimiter = "StateCensus.csv";
+
+        CSVStateCensus csvStateCensus = new CSVStateCensus(filePathWithIncorrectDelimiter);
+        StateCensusAnalyser stateCensusAnalyser = new StateCensusAnalyser(csvStateCensus);
+
+        csvStateCensus.setExpectedDelimiter(".");
+        CSVDelimiterException thrownException = assertThrows(CSVDelimiterException.class, () -> stateCensusAnalyser.loadAndParseData(filePathWithIncorrectDelimiter));
+        assertNotNull(thrownException);
+        assertEquals("Incorrect delimiter in CSV file. Expected: incorrect_delimiter", thrownException.getMessage());
+    }
 }
+
+
+    
+
